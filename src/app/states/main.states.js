@@ -138,6 +138,14 @@ function register(voxaApp) {
     };
   });
 
+  voxaApp.onState("askIfStartANewGame", () => {
+    return {
+      flow: "yield",
+      reply: "AskIfStartANewGame",
+      to: "shouldStartANewGame",
+    };
+  });
+
   //jhilnk
 }
 
