@@ -1,4 +1,4 @@
-# Rock Paper Scissors
+# Rock Paper Scissors (Rain Assessment)
 
 This application is written using the [voxa3](https://github.com/mediarain/voxa) framework developed by RAIN.
 
