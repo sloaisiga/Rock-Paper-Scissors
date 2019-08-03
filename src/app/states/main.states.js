@@ -177,6 +177,22 @@ function register(voxaApp) {
     };
   });
 
+  voxaApp.onIntent("HelpIntent", () => {
+    return {
+      flow: "continue",
+      reply: "Help",
+      to: "StartANewGame",
+    };
+  });
+
+  voxaApp.onState("StartANewGame", () => {
+    return {
+      flow: "yield",
+      reply: "AskForANewGame",
+      to: "shouldStartANewGame",
+    };
+  });
+
   //jhilnk
 }
 

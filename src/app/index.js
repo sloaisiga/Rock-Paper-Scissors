@@ -1,8 +1,4 @@
-const {
-  AlexaPlatform,
-  plugins,
-  VoxaApp
-} = require("voxa");
+const { AlexaPlatform, plugins, VoxaApp } = require("voxa");
 const config = require("../config");
 const defaultFulfillIntents = require("../../content/en-US/canfulfill-intent.json");
 const Model = require("./model");
@@ -21,28 +17,28 @@ plugins.replaceIntent(voxaApp);
 /**
  * Load User into the model
  */
-voxaApp.onRequestStarted(async (voxaEvent) => {
-  const user = await User.get(voxaEvent);
+// voxaApp.onRequestStarted(async (voxaEvent) => {
+//   const user = await User.get(voxaEvent);
 
-  voxaEvent.model.user = user;
-});
+//   voxaEvent.model.user = user;
+// });
 
 /**
  * Update the session count
  */
-voxaApp.onSessionStarted(async (voxaEvent) => {
-  const user = voxaEvent.model.user;
-  user.newSession();
-});
+// voxaApp.onSessionStarted(async voxaEvent => {
+//   const user = voxaEvent.model.user;
+//   user.newSession();
+// });
 
 /**
  * Save the user
  */
-voxaApp.onBeforeReplySent(async (voxaEvent) => {
-    const user = voxaEvent.model.user;
+// voxaApp.onBeforeReplySent(async (voxaEvent) => {
+//     const user = voxaEvent.model.user;
 
-    await user.save({ userId: voxaEvent.user.userId });
-  }
-);
+//     await user.save({ userId: voxaEvent.user.userId });
+//   }
+// );
 
 exports.voxaApp = voxaApp;
