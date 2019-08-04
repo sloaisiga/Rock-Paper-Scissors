@@ -1,0 +1,84 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "rain assessment",
+      "intents": [
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "NewGameIntent",
+          "slots": [],
+          "samples": [
+            "let's play again",
+            "let's battle",
+            "start a game",
+            "start a new game"
+          ]
+        },
+        {
+          "name": "RockIntent",
+          "slots": [],
+          "samples": ["pick rock", "I choose rock", "rocks", "rock"]
+        },
+        {
+          "name": "PaperIntent",
+          "slots": [],
+          "samples": ["pick paper", "I choose paper", "papers", "paper"]
+        },
+        {
+          "name": "ScissorsIntent",
+          "slots": [],
+          "samples": ["I choose scissors", "caesar", "scissor", "scissors"]
+        },
+        {
+          "name": "MaxWinsIntent",
+          "slots": [
+            {
+              "name": "wins",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": ["{wins} wins", "{wins}"]
+        },
+        {
+          "name": "AMAZON.YesIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.NoIntent",
+          "samples": []
+        },
+        {
+          "name": "ScoreIntent",
+          "slots": [],
+          "samples": [
+            "score",
+            "what is the score",
+            "what's the score",
+            "what's my score",
+            "what is my score"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}
