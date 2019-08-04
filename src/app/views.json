@@ -51,6 +51,12 @@
       },
       "NoScoreResult": {
         "say": "There's no score."
+      },
+      "CurrentScore": {
+        "say": "The score right now is: Alexa {alexaWins}, you {userWins}. Are you sure you want to start a new game?"
+      },
+      "ContinueTheGame": {
+        "say": "Let's continue."
       }
     }
   }

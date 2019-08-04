@@ -190,7 +190,7 @@ function register(voxaApp) {
     return {
       flow: "yield",
       reply: "AskForANewGame",
-      to: "shouldStartANewGame", //askIfStartANewGame",
+      to: "shouldStartANewGame",
     };
   });
 
@@ -208,6 +208,57 @@ function register(voxaApp) {
       reply: "NoScoreResult",
       to: "StartANewGame",
     };
+  });
+
+  voxaApp.onIntent("NewGameIntent", voxaEvent => {
+    const MaxWins = parseInt(voxaEvent.model.wins) || 0;
+
+    if (MaxWins == 0) {
+      voxaEvent.model.userWins = 0;
+      voxaEvent.model.alexaWins = 0;
+    }
+
+    return {
+      flow: "yield",
+      reply: "CurrentScore",
+      to: "ConfirmNewGame",
+    };
+  });
+
+  voxaApp.onState("ConfirmNewGame", voxaEvent => {
+    const MaxWins = parseInt(voxaEvent.model.wins) || 0;
+    const userWon = parseInt(voxaEvent.model.userWins);
+    const alexaWon = parseInt(voxaEvent.model.alexaWins);
+
+    if (voxaEvent.intent.name === "YesIntent") {
+      return {
+        flow: "continue",
+        to: "shouldStartANewGame",
+      };
+    }
+
+    if (voxaEvent.intent.name === "NoIntent") {
+      if (MaxWins == 0) {
+        return {
+          reply: "ContinueTheGame",
+          to: "askHowManyWins",
+        };
+      }
+
+      if (MaxWins > userWon && MaxWins > alexaWon) {
+        return {
+          reply: "ContinueTheGame",
+          to: "askUserChoice",
+        };
+      }
+
+      if (MaxWins == userWon || MaxWins == alexaWon) {
+        return {
+          flow: "terminate",
+          reply: "Bye",
+        };
+      }
+    }
   });
 
   //jhilnk
