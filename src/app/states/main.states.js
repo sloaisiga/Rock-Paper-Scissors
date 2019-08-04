@@ -15,11 +15,24 @@ function register(voxaApp) {
     };
   });
 
+  const MAX_WINS_ALLOWED = 10;
+
   voxaApp.onState("getHowManyWins", voxaEvent => {
     if (voxaEvent.intent.name === "MaxWinsIntent") {
       voxaEvent.model.wins = voxaEvent.intent.params.wins;
       voxaEvent.model.userWins = 0;
       voxaEvent.model.alexaWins = 0;
+
+      const MaxWins = parseInt(voxaEvent.model.wins);
+
+      if (MaxWins > MAX_WINS_ALLOWED) {
+        return {
+          flow: "yield",
+          reply: "ConfirmMaxWins",
+          to: "confirmMaxWins",
+        };
+      }
+
       return {
         flow: "continue",
         reply: "StartGame",
@@ -28,6 +41,22 @@ function register(voxaApp) {
     }
 
     return { to: "entry" };
+  });
+
+  voxaApp.onState("confirmMaxWins", voxaEvent => {
+    if (voxaEvent.intent.name === "YesIntent") {
+      return {
+        flow: "continue",
+        reply: "StartGame",
+        to: "askUserChoice",
+      };
+    }
+
+    if (voxaEvent.intent.name === "NoIntent") {
+      return {
+        to: "askHowManyWins",
+      };
+    }
   });
 
   const CHOICES = ["rock", "paper", "scissors"];

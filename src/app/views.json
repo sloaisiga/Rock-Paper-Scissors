@@ -57,6 +57,9 @@
       },
       "ContinueTheGame": {
         "say": "Let's continue."
+      },
+      "ConfirmMaxWins": {
+        "say": "{maxWins} is a big number, are you sure you want to play until one of us wins {maxWins} times?"
       }
     }
   }
