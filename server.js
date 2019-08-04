@@ -15,6 +15,7 @@ if (config.server.hostSkill) {
     expressApp.post(route, async (req, res, next) => {
       try {
         const reply = await handler.execute(req.body);
+        console.log(`Print: ${JSON.stringify(reply, null, 2)}`);
         res.json(reply);
       } catch (e) {
         next(e);

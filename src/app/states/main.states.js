@@ -26,6 +26,8 @@ function register(voxaApp) {
         to: "askUserChoice",
       };
     }
+
+    return { to: "entry" };
   });
 
   const CHOICES = ["rock", "paper", "scissors"];
@@ -179,7 +181,6 @@ function register(voxaApp) {
 
   voxaApp.onIntent("HelpIntent", () => {
     return {
-      flow: "continue",
       reply: "Help",
       to: "StartANewGame",
     };
@@ -189,7 +190,23 @@ function register(voxaApp) {
     return {
       flow: "yield",
       reply: "AskForANewGame",
-      to: "shouldStartANewGame",
+      to: "shouldStartANewGame", //askIfStartANewGame",
+    };
+  });
+
+  voxaApp.onIntent("ScoreIntent", voxaEvent => {
+    let score =
+      parseInt(voxaEvent.model.userWins) + parseInt(voxaEvent.model.alexaWins);
+
+    if (score > 0) {
+      return {
+        reply: "ScoreResult",
+        to: "askUserChoice",
+      };
+    }
+    return {
+      reply: "NoScoreResult",
+      to: "StartANewGame",
     };
   });
 

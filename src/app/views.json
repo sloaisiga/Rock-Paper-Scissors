@@ -45,6 +45,12 @@
       "AskForANewGame": {
         "say": "Should we play?",
         "reprompt": "Should we play?"
+      },
+      "ScoreResult": {
+        "say": "You have {userWins} wins and I have {alexaWins} wins."
+      },
+      "NoScoreResult": {
+        "say": "There's no score."
       }
     }
   }
