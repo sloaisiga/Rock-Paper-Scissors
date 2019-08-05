@@ -40,7 +40,7 @@
         "say": "That's all right, until next time!"
       },
       "Help": {
-        "say": "This is the classic rock paper scissors. You can start a new game by saying start rain assessment, you can check the score by saying what is my score, you can stop the game by saying stop"
+        "say": "This is the classic rock paper scissors. You can start a new game by saying start rain assessment, you can check the score by saying what is the score, you can stop the game by saying stop"
       },
       "AskForANewGame": {
         "say": "Should we play?",
@@ -60,6 +60,9 @@
       },
       "ConfirmMaxWins": {
         "say": "{maxWins} is a big number, are you sure you want to play until one of us wins {maxWins} times?"
+      },
+      "NoIdea": {
+        "say": "I'm sorry, I didn't understand what you said. You can start a new game by saying start a new game, you can check the score by saying what is the score"
       }
     }
   }

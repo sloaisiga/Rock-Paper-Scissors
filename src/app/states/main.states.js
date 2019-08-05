@@ -97,20 +97,24 @@ function register(voxaApp) {
   });
 
   voxaApp.onState("getUserChoice", voxaEvent => {
-    if (voxaEvent.intent.name === "RockIntent") {
-      voxaEvent.model.userChoice = "rock";
-    } else if (voxaEvent.intent.name === "PaperIntent") {
-      voxaEvent.model.userChoice = "paper";
-    } else if (voxaEvent.intent.name === "ScissorsIntent") {
-      voxaEvent.model.userChoice = "scissors";
-    }
+    const intents = {
+      RockIntent: "rock",
+      PaperIntent: "paper",
+      ScissorsIntent: "scissors",
+    };
 
-    if (voxaEvent.model.userChoice) {
+    const foundOption = intents[voxaEvent.intent.name];
+    if (foundOption) {
+      voxaEvent.model.userChoice = foundOption;
+      console.log(`voxaEvent.model.userChoice ${voxaEvent.model.userChoice}`);
+
       return {
         flow: "continue",
         to: "processWinner",
       };
     }
+
+    return { to: "entry" };
   });
 
   voxaApp.onState("processWinner", voxaEvent => {
@@ -290,7 +294,17 @@ function register(voxaApp) {
     }
   });
 
-  //jhilnk
+  voxaApp.onUnhandledState(voxaEvent => {
+    return {
+      to: "FallbackIntent",
+    };
+  });
+
+  voxaApp.onState("FallbackIntent", () => ({
+    flow: "yield",
+    reply: "NoIdea",
+    to: "entry",
+  }));
 }
 
 module.exports = register;
