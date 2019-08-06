@@ -118,11 +118,31 @@ function register(voxaApp) {
   });
 
   voxaApp.onState("processWinner", voxaEvent => {
-    const alexaChoice = CHOICES[voxaEvent.model.alexaChoice];
-    const { userChoice } = voxaEvent.model;
     let reply = "TiedResult";
 
-    if (alexaChoice === userChoice) {
+    const choicesForWinning = [
+      { choice: "rock", defeat: "scissors" },
+      { choice: "paper", defeat: "rock" },
+      { choice: "scissors", defeat: "paper" },
+    ];
+
+    const alexaChoice = choicesForWinning[voxaEvent.model.alexaChoice];
+    const { userChoice } = voxaEvent.model;
+
+    var getAlexaOptions = Object.values(alexaChoice);
+    var userLoseWith = getAlexaOptions.pop();
+    var alexaOption = getAlexaOptions.shift();
+
+    function getOptions(win) {
+      return win.choice === userChoice;
+    }
+
+    var getUserOptions = Object.values(choicesForWinning).find(getOptions);
+
+    var alexaLoseWith = getUserOptions.defeat;
+    var userOption = getUserOptions.choice;
+
+    if (userOption === alexaOption) {
       return {
         flow: "continue",
         reply,
@@ -130,40 +150,14 @@ function register(voxaApp) {
       };
     }
 
-    if (alexaChoice === "rock") {
-      if (userChoice === "paper") {
-        voxaEvent.model.userWins += 1;
-        reply = "UserWins";
-      }
-
-      if (userChoice === "scissors") {
-        voxaEvent.model.alexaWins += 1;
-        reply = "AlexaWins";
-      }
+    if (userOption === userLoseWith) {
+      voxaEvent.model.alexaWins += 1;
+      reply = "AlexaWins";
     }
 
-    if (alexaChoice === "paper") {
-      if (userChoice === "scissors") {
-        voxaEvent.model.userWins += 1;
-        reply = "UserWins";
-      }
-
-      if (userChoice === "rock") {
-        voxaEvent.model.alexaWins += 1;
-        reply = "AlexaWins";
-      }
-    }
-
-    if (alexaChoice === "scissors") {
-      if (userChoice === "rock") {
-        voxaEvent.model.userWins += 1;
-        reply = "UserWins";
-      }
-
-      if (userChoice === "paper") {
-        voxaEvent.model.alexaWins += 1;
-        reply = "AlexaWins";
-      }
+    if (alexaOption === alexaLoseWith) {
+      voxaEvent.model.userWins += 1;
+      reply = "UserWins";
     }
 
     return {
